@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ego_planner</name>
+  <version>2.0.0</version>
+  <description>EGO Planner — ESDF-free gradient trajectory planner for ground robots (ROS2 port)</description>
+  <maintainer email="dev@3dnavi.dev">3d-navi</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>quadrotor_msgs_ros2</depend>
+  <depend>bspline_opt</depend>
+  <depend>path_searching</depend>
+  <depend>plan_env</depend>
+  <depend>traj_utils</depend>
+  <depend>Eigen3</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

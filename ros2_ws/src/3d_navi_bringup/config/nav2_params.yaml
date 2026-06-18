@@ -1,0 +1,78 @@
+# Nav2 parameters for Unitree A1/Go2
+# ROS2 PORT: replaces unitree_move_base (move_base, costmap_common_params.yaml etc.)
+# Bugs fixed: Bug42 (inflation 0.03→0.38m), Bug43 (fake laser→real cloud), Bug50 (frame=trunk)
+
+amcl:
+  ros__parameters:
+    use_sim_time: true
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: true
+    global_frame: map
+    robot_base_frame: trunk    # FIX Bug50: was "base" — Unitree frame is "trunk"
+    odom_topic: /Odometry_gazebo
+    default_bt_xml_filename: navigate_w_replanning_and_recovery.xml
+
+controller_server:
+  ros__parameters:
+    use_sim_time: true
+    controller_frequency: 10.0   # matches traj_server 10Hz cmd_vel output
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.001
+    min_theta_velocity_threshold: 0.001
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      use_sim_time: true
+      global_frame: odom
+      robot_base_frame: trunk    # FIX Bug50
+      rolling_window: true
+      width: 10
+      height: 10
+      resolution: 0.1
+      robot_radius: 0.38         # FIX Bug42: was 0.03m (GO2 footprint diagonal)
+      plugins: ["obstacle_layer", "inflation_layer"]
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.38   # FIX Bug42: was 0.03m
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        # FIX Bug43: replaced fake faceLaserScan/leftLaserScan/rightLaserScan
+        # (none of which were ever published) with actual cloud source
+        observation_sources: lidar_cloud
+        lidar_cloud:
+          data_type: "PointCloud2"
+          topic: /cloud_registered
+          marking: true
+          clearing: true
+          min_obstacle_height: -0.1
+          max_obstacle_height: 2.0
+          expected_update_rate: 10.0
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      use_sim_time: true
+      global_frame: map          # FIX Bug_global: was "odom" for global costmap
+      robot_base_frame: trunk    # FIX Bug50
+      robot_radius: 0.38         # FIX Bug42
+      resolution: 0.1
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.38
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        observation_sources: lidar_cloud
+        lidar_cloud:
+          data_type: "PointCloud2"
+          topic: /cloud_registered
+          marking: true
+          clearing: true
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true

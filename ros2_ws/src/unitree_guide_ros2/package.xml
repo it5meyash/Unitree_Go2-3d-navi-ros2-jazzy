@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>unitree_guide_ros2</name>
+  <version>2.0.0</version>
+  <description>Unitree A1/Go2 FSM locomotion controller with RL policy (ROS2 Jazzy port)</description>
+  <maintainer email="dev@3dnavi.dev">3d-navi</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <!-- Torch for RL policy inference -->
+  <build_depend>Torch</build_depend>
+  <!-- unitree_ros2 replaces unitree_legged_sdk 3.8.0 -->
+  <!-- Install separately: https://github.com/unitreerobotics/unitree_ros2 -->
+  <exec_depend>unitree_go</exec_depend>
+  <exec_depend>unitree_api</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

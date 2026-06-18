@@ -1,0 +1,42 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Displays:
+    - Class: rviz_default_plugins/PointCloud2
+      Name: LiDAR Cloud
+      Topic:
+        Value: /cloud_registered
+      Color: 200; 200; 200
+      Size (m): 0.05
+    - Class: rviz_default_plugins/Odometry
+      Name: Robot Odometry
+      Topic:
+        Value: /Odometry_gazebo
+      Shape: Arrow
+    - Class: rviz_default_plugins/Path
+      Name: PCT Global Path
+      Topic:
+        Value: /pct_path
+      Color: 0; 255; 0
+    - Class: rviz_default_plugins/Path
+      Name: EGO Trajectory
+      Topic:
+        Value: /planning/trajectory
+      Color: 255; 128; 0
+    - Class: rviz_default_plugins/MarkerArray
+      Name: EGO Vis
+      Topic:
+        Value: /planning/vis_trajectory
+    - Class: rviz_default_plugins/MarkerArray
+      Name: PCT Vis
+      Topic:
+        Value: /pct_path_vis
+    - Class: rviz_default_plugins/RobotModel
+      Name: Robot Model
+      Description File: ""
+  Global Options:
+    Fixed Frame: map
+  Value: true

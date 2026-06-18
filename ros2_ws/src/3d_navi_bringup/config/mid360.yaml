@@ -1,0 +1,53 @@
+# FAST-LIO2 MID360 config for ROS2 Jazzy
+# Replaces: livox_ros_driver2 ROS1 config
+# ROS2 FAST-LIO2: https://github.com/hku-mars/FAST_LIO/tree/ROS2
+
+/**:
+  ros__parameters:
+    # LiDAR type: 1=Livox CustomMsg, 2=Velodyne, 3=Hesai
+    lidar_type: 1
+
+    # MID360 uses microseconds (unit 3)
+    # FIX: must be set correctly or timestamp drift causes pose errors
+    timestamp_unit: 3
+
+    # IMU-LiDAR extrinsic calibration
+    # FIX: extrinsic_est_en MUST be false after calibration to prevent in-flight drift
+    extrinsic_est_en: false
+
+    # Coordinate frame published by FAST-LIO2
+    # FIX Bug2: FAST-LIO2 publishes /Odometry (ROS2: on /odometry topic)
+    # We remap this in launch to /Odometry_gazebo for consistency
+    common:
+      lid_topic: "/livox/lidar"
+      imu_topic: "/livox/imu"
+      time_sync_en: false  # set true with hardware GPS-PPS sync
+      time_offset_lidar_to_imu: 0.0
+
+    preprocess:
+      lidar_type: 1
+      scan_line: 4           # MID360 has 4 scan lines
+      scan_rate: 10          # Hz
+      point_filter_num: 3
+      feature_extract_enable: false  # disabled for Livox solid-state
+
+    mapping:
+      acc_cov: 0.1
+      gyr_cov: 0.1
+      b_acc_cov: 0.0001
+      b_gyr_cov: 0.0001
+      fov_degree: 360
+      det_range: 100.0
+      extrinsic_est_en: false    # FIX: prevent runtime extrinsic drift
+      extrinsic_T: [0.0, 0.0, 0.0]   # ← set from your calibration
+      extrinsic_R: [1,0,0, 0,1,0, 0,0,1]
+
+    publish:
+      path_en: true
+      scan_publish_en: true
+      dense_publish_en: false
+      scan_bodyframe_pub_en: false
+
+    pcd_save:
+      pcd_save_en: false
+      interval: -1

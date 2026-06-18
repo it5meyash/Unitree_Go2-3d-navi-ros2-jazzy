@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>traj_utils</name>
+  <version>2.0.0</version>
+  <description>Trajectory utilities and visualization (ROS2 port)</description>
+  <maintainer email="dev@3dnavi.dev">3d-navi</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>visualization_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>Eigen3</depend>
+  <depend>bspline_opt</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
