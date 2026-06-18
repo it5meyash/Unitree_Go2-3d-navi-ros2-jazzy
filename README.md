@@ -1,6 +1,6 @@
 # 3d-navi ROS2 Jazzy Workspace
 
-Full ROS2 Jazzy port of the 3d-navi autonomous navigation stack for Unitree A1/Go2.
+Full ROS2 Jazzy port of the 3d-navi autonomous navigation stack for Unitree A2/Go2.
 
 ## Package structure
 
